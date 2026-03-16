@@ -111,15 +111,15 @@ termination shock and the edge of the heliosphere), are identified as
 
 However, in a completely unanticipated finding, IBEX also recorded a thin
 string of higher rates of ENAs \citep{fuselier2009IBEXribbon} wrapping around
-the heliosphere. Scientists now refer to this phenomenom as the
-\textit{ribbon}. This unique feature of a sky map is clearly visible in Fig.
+the heliosphere. Scientists now refer to this phenomenon as the
+\textit{ribbon}. This unique feature of a sky map is clearly visible in Figure
 \ref{f:fig1}. Since this discovery, space scientists have proposed several
 theories attempting to describe the physical process that generates the ribbon
 \citep{mccomas2014ibex, zirnstein2018role, zirnstein2019strong,
 zirnstein2021dependence}.
 
 Computer models encapsulating competing theories have been built, which generate
-high-resolution (i.e, a high-dimensional response) synthetic sky maps (middle
+high-resolution (i.e. a high-dimensional response) synthetic sky maps (middle
 and right panels of Figure \ref{f:fig1}). These simulations are extremely
 sophisticated and involve many complex and expensive operations (e.g. solving
 differential equations). Consequently, executing a single run of the computer
@@ -189,25 +189,26 @@ row.}
 \label{tab:prev_work}
 \end{table}
 
-\citet{kennedyohagan2001} offer the canonical computer model calibration
-framework, which provides a fully Bayesian approach to estimate the posterior
-distribution of model parameters and improve prediction at new, unobserved field
-locations. However, their methodology is limited to Gaussian field observations
-and small, simulator output. \citet{higdoncalib2008} and SEPIA
-\citep{gattiker2020lanl}, its more recent incarnation, also employ Bayesian
-methods while accounting for computer model output that is functional. But SEPIA
-is somewhat rigid, only considers Gaussian field observations, does not scale
-well with added model runs, and requires the user to specify a number of basis
-functions to represent the simulator response. \citet{gramacy2015calibrating}
-consider computer model calibration with large-scale output from a computer
+\citet{kennedyohagan2001} (hereafter referred to as KOH) offer the canonical
+computer model calibration framework, which provides a fully Bayesian
+approach to estimate the posterior distribution of model parameters and
+improve prediction at new, unobserved field locations. However, their
+methodology is limited to Gaussian field observations and small, simulator
+output. \citet{higdoncalib2008} and SEPIA \citep{gattiker2020lanl}, its more
+recent incarnation, also employ Bayesian methods while accounting for
+computer model output that is functional. But SEPIA is somewhat rigid, only
+considers Gaussian field observations, does not scale well with added model
+runs, and requires the user to specify a number of basis functions to
+represent the simulator response. \citet{gramacy2015calibrating} consider
+computer model calibration with large-scale output from a computer
 experiment, necessitating an approximation. But their implementation is not
-Bayesian and the scale of simulator data is still orders of magnitude less than
-IBEX. \citet{grosskopfcountcalib2020} provide an extension of the Kennedy \&
-O'Hagan (hereafter referred to as KOH) framework to non-Gaussian data that
-maintains a Bayesian approach. But they are limited to small amounts of computer
-model data and do not consider higher dimensional responses. In contrast, our
-approach checks all the boxes to achieve the goal of IBEX space scientists and
-therefore applies to a wider class of problems than previous work.
+Bayesian and the scale of simulator data is still orders of magnitude less
+than IBEX. \citet{grosskopfcountcalib2020} provide an extension of the KOH
+framework to non-Gaussian data that maintains a Bayesian approach. But they
+are limited to small amounts of computer model data and do not consider
+higher dimensional responses. In contrast, our approach checks all the boxes
+to achieve the goal of IBEX space scientists and therefore applies to a
+wider class of problems than previous work.
 
 Our integrated framework for Bayesian inverse problems overcomes these obstacles
 together in an all-in-one solution, as illustrated in the top row of Table
@@ -260,7 +261,7 @@ measurement) and a computer implementation of a physical model $m(u, X)$,
 where parameters $u$ are unknown and $X$ represents the spatial locations
 where the simulation output is evaluated.  These may be the locations $X^F$
 that correspond to field measurements $Y^F$, or a grid of predictive locations
-supporting high resolution visuals.  Given prior information about $u$, we
+supporting high-resolution visuals.  Given prior information about $u$, we
 want to know which $u$'s lead to realizations of $m(\cdot, \cdot)$ that could
 explain $Y^F$, i.e., the posterior for $u \mid Y^F$.
 
@@ -322,7 +323,7 @@ Metropolis sampler successfully concentrates posterior mass around the true
 value of $u$.
 
 The literature on Bayesian inverse problems involves methods that work
-predominantly in this way, particularly as regards a Gaussian likelihood. We
+predominantly in this way, particularly regarding a Gaussian likelihood. We
 aim to provide a method that achieves the same goal, but for unknown parameters
 $u$ that underlie observed IBEX satellite data (left panel of Figure
 \ref{f:fig1}), whose observations are counts under variable exposure. Our first
@@ -348,7 +349,7 @@ Y^F &\sim \mathrm{Pois}(\lambda(X^F), e(X^F)) & \lambda(X) &= m(u, X) \nonumber
 where $e(X^F)$ represents the duration (in seconds) the satellite points at
 specific locations in the sky. $\lambda(X^F)$ denotes the rate at which ENA
 particles are generated for rows (latitude/longitude pairs) in $X^F$. Sampling
-from the posterior could proceed via Metroplis as in Algorithm \ref{alg:gibbs}.
+from the posterior could proceed via Metroplois as in Algorithm \ref{alg:gibbs}.
 For the IBEX field data, we evaluate a Poisson likelihood given an exposure
 time for each observation and a mean surface determined by a simulator
 $m(\cdot,\cdot)$ at proposed values of $u$, although we believe it would be
@@ -385,7 +386,7 @@ m(u^\star, X^F)$, as shown in the left panel of Figure \ref{f:toy_calib_pois}.
 Computer model runs $m(\cdot,\cdot) = \lambda(X)$ produce different mean
 surfaces given unique values of $u = (u_1, u_2)$. Observed counts are shown as
 red stars. Red circles indicate the sum of all counts at one input location
-(i.e, a single row of $X^F$) divided by the sum of their corresponding exposure
+(i.e. a single row of $X^F$) divided by the sum of their corresponding exposure
 times $e(\cdot)$. These points are the actual data we receive. Results from
 running Algorithm \ref{alg:gibbs} are shown in the middle and right panels of
 Figure \ref{f:toy_calib_pois}. Similar to the results in Figure
@@ -405,7 +406,7 @@ draws and mean (middle), and posterior distribution of model parameters
 \end{figure}
 
 In each of these toy examples we have made the assumption that we have unlimited
-access to simulator runs (i.e, for each proposed combination of model
+access to simulator runs (i.e., for each proposed combination of model
 parameters, we can quickly get a response from the computer simulation). But
 that is rarely the case, presenting another challenge to the typical Bayesian
 inverse problem apparatus. For instance, each run of the IBEX model $m(\cdot,
@@ -415,7 +416,7 @@ requiring thousands of iterations to converge.  While it's rather conventional
 to deploy a surrogate model \citep[e.g.][]{gramacy2020surrogates} in this
 setting, trained on a design of space-filling $u$-values, doing so effectively
 is challenged by the number of rows (i.e. unique measurement locations) in
-$X^F$.  We considered multiple surrogate models developed to accomodate such
+$X^F$.  We considered multiple surrogate models developed to accommodate such
 scenarios (e.g. GPs via inducing points \citep{banerjee2008gaussian}, local
 approximate GPs \citep{gramacy2014lagp}), but found them unable to manage the
 scale of the IBEX data. Herein lies our main methodological contribution, using
@@ -431,7 +432,7 @@ contribution.
 \label{sec:gp_surr}
 %------------------------------------------------------------------------------
 
-Evaluating the likelihood $Y_F$ in Algorithm \ref{alg:gibbs} may proceed via
+Evaluating the likelihood $Y^F$ in Algorithm \ref{alg:gibbs} may proceed via
 surrogate when {\em in situ} evaluation directly on $m(\cdot, \cdot)$ is too
 slow. Suppose we have a vector of observations $Y^M$ ($M$ for computer model) at
 input locations $X^M$ from a campaign of runs of $m(\cdot, \cdot)$ that may or
@@ -463,7 +464,7 @@ context, all the action takes place in the covariance function $\Sigma(x, x')$,
 which is usually specified as inversely proportional to distances between inputs
 $x$ and $x'$. We use a form known as the separable Mat\'ern kernel
 \citep{stein1999interpolation} in our work, a conventional choice, parameterized
-by lengthscales $\theta$ and scale $\tau^2$. For details, see \citep[][Chapter
+by lengthscales $\theta$ and scale $\tau^2$. For details, see \citet[][Chapter
 5]{gramacy2020surrogates}. GPs provide a flexible, nonparametric regression
 tool. In addition to enjoying canonical status as surrogates for computer
 simulation experiments, they are utilized in geospatial statistics
@@ -514,7 +515,7 @@ compactly supported kernels \citep{kaufman2011efficient}, divide-and-conquer
 \citep{gramacy2015local}, and nearest neighbors \citep{datta2016hierarchical,
 wu2022variational}. Most of these are general enough to be used in a variety of
 different fields and applications. However, there is a method tailor-made for
-our Bayesian inverse problem setting when the likelihood (for $Y_F$) is
+our Bayesian inverse problem setting when the likelihood (for $Y^F$) is
 Gaussian.
 
 Specifically in the context of (Gaussian) inverse problems,
@@ -531,7 +532,7 @@ way, $X^M$ remains small, including only the unique combinations of unknown
 parameters $u$.
 
 Then, rather than keep track of all of those outputs $Y^M$, indexed over $X^F$
-or $X$, dimensionality may be drammatically reduced via principal components
+or $X$, dimensionality may be dramatically reduced via principal components
 analysis (PCA). Specifically, they proposed representing the vector output of a
 simulator model $m(\cdot,\cdot)$ as the sum of $n_k$ basis functions $k_1, k_2,
 \ldots , k_{n_k}$, each scaled by a corresponding weight $w_i(u)$: $m(u, X)
@@ -647,7 +648,7 @@ $u$-space.
 \includegraphics[scale=0.44, trim=5 0 30 0,clip=TRUE]{ibex_nbr_params.pdf}
 \caption{Conditioning sets $h(i)$ in a multivariate normal likelihood
 (Eq.~\ref{eq:vecchia}) for a single observation $Y_i^M$ using the Scaled Vecchia
-approximation. The left panel visualizes neighborhoods in grid space (i.e.\!~$X$
+approximation. The left panel visualizes neighborhoods in grid space (i.e.,\!~$X$
 or $X^F$). Model parameter ($u$) space is displayed in the right panel with
 jitter added. Intersections of black, dashed lines indicate unique $u$
 combinations run on the simulator.
@@ -696,7 +697,7 @@ TRUE}, and the current ``status-quo'' SEPIA \citep{gattiker2020lanl} with $n_k
 = 3$, implemented in {\sf Python}.
 
 Figure \ref{f:ibex_surr_metrics} displays the accuracy results of a simple
-hold-one-out bakeoff, with time coming next. For each iteration of the
+hold-one-out bake-off, with time coming next. For each iteration of the
 experiment, we fit a Scaled Vecchia GP surrogate on 65 of the $n=66$ model runs
 available. Then, we predict at the held out model parameter. For now, just pay
 attention to the boxplots on the left-hand side of each panel. We'll come back
@@ -767,7 +768,7 @@ not be the case in other situations, requiring more principal components and by
 extension a heavier computational load.
 
 Figure \ref{f:ibex_surr_timing_size} displays timing results from changing the
-size of the training dataset (i.e, the number of simulator runs $n$). SEPIA was
+size of the training dataset (i.e., the number of simulator runs $n$). SEPIA was
 specifically built for computer experiments with high-dimensional output. While
 it clearly performs well in these situations, it's also fairly inflexible to
 other contexts, such as a large number of simulation runs. Scaled Vecchia does
@@ -911,7 +912,7 @@ that we employ an empirical Bayes approach
 \citep{berger1985statistical,kennedyohagan2001}, pre-estimating the GP
 hyperparameter $\theta$ and only fitting the surrogate on simulator output
 \citep{Liu2009ModularizationIB}. We execute 10,000 MCMC iterations, throwing
-away 1,000 as burnin and thinning by 10. Figure \ref{f:ibex_synth_ex} displays
+away 1,000 as burn-in and thinning by 10. Figure \ref{f:ibex_synth_ex} displays
 the remaining posterior samples of $u$ (bottom right) as a kernel density along
 with a 95\% highest posterior density (HPD) interval. The posterior mean of $u
 \mid Y^F$ lies near $u^\star$, demonstrating that our framework is able to
@@ -919,7 +920,7 @@ concentrate mass around the ``true'' model parameter. As a sanity check, we
 take the estimated posterior mean and plug it in to our fitted Scaled Vecchia
 GP surrogate of the IBEX simulator. The predicted output is shown in the bottom
 left panel of Figure \ref{f:ibex_synth_ex}. There are some nearly imperceptible
-differences between the estimated sky map and the true $\lambda^\star$ (i.e,
+differences between the estimated sky map and the true $\lambda^\star$ (i.e.,
 the shape and intensity of the ribbon vary slightly between the two). However,
 from a purely visual standpoint, it appears that each map could have reasonably
 generated the data we ``observe'' in the top left panel.
@@ -942,7 +943,7 @@ scientists to include all values considered reasonable: parallel mean free path
 ranges from 500-3000 astronomical units (AU); ratio values are unitless, and
 span from 0.001 to 0.1. Due to the inability for the model to furnish posterior
 samples beyond the boundary parameters, we do not test those combinations for
-which at least one parameter is on its edge (i.e, when parallel mean free path
+which at least one parameter is on its edge (i.e., when parallel mean free path
 $\in \{500, 3000\}$ and/or ratio $\in \{0.001, 0.1\}$). Removing these edge
 cases results in 36 remaining test runs. For each combination, we follow the
 same procedure as above: select one model parameter and set as $u^\star$, create
@@ -1069,7 +1070,7 @@ posterior samples $u \mid Y^F$, when using the complete satellite dataset and
 the \textit{available} computer model output, performs well in terms of CRPS.
 That is, our estimate of $u$ resides in the region with settings of parallel
 mean free path and ratio that result in the lowest values of CRPS across the
-supplied parameter bounds. Therefore, given the constraints (i.e, bias from
+supplied parameter bounds. Therefore, given the constraints (i.e. bias from
 reality) of a specific computer model and the $u$-values provided in a campaign
 of simulator runs, we can be confident that our Bayesian framework concentrates
 posterior mass at the best possible value of the model parameter $u$.
@@ -1103,7 +1104,7 @@ focused on data collected in a three-year period for which the computer model we
 relied on was aligned. Figure \ref{f:real_estimates_all} shows resulting
 estimated posterior distributions for model parameter $u$ when field data is
 split by year (2012-2021). Behavior is similar to what we observed in Figure
-\ref{f:ibex_real_ex}, but even more extreme, as the Metroplis sampler pushes up
+\ref{f:ibex_real_ex}, but even more extreme, as the Metroplois sampler pushes up
 against the boundary of the current range of $u$. We certainly do not claim
 these posteriors to be the true distribution of parallel mean free path and
 ratio. Instead, we suggest our work be extended to account for un-modeled
@@ -1235,7 +1236,7 @@ of each plot indicate the true model parameter $u^\star$ that was used to
 sample the synthetic data. If the data ``observed'' comes from a Poisson
 distribution with a mean surface $\lambda(X) = \hat{m}(\hat{u}, X)$, then we'd
 expect the PIT histogram to be distributed evenly between 0 and 1. This is
-certainly the case for all 15 histograms shown.  No siginifcant departure from
+certainly the case for all 15 histograms shown.  No significant departure from
 a Uniform(0,1) is observed. Therefore, we can add further empirical backing to
 our visual assessment that estimates from our framework reasonably explain the
 data ``observed.''
