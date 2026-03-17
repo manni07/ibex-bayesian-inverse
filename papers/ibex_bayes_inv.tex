@@ -473,7 +473,7 @@ optimization \citep{jones1998efficient}.
 
 GP surrogates are extremely effective. To illustrate, recall Figures
 \ref{f:toy_calib} and \ref{f:toy_calib_pois} in Section \ref{sec:gen_bayes_inv},
-where limited samples of computer model evaluations ($n < 50$) are shown. For
+where limited samples of computer model evaluations ($n_M < 50$) are shown. For
 these toy examples, we ``assumed'' we had unlimited access to the simulator. In
 reality, we fit a GP surrogate to the model runs in the left panels. Therefore,
 ``model runs'' at posterior draws of $u$ in the center panels are not in fact
@@ -492,9 +492,9 @@ $n_M=20 \times 30$, combining $X$ and $U$, which is manageable. But for IBEX,
 the simulated sky maps like those in the middle and right panels of Figure
 \ref{f:fig1} are in 2d (under the hood the output is in spherical coordinates
 $x$, $y$, and $z$) and results in ${>}16{,}000$ locations (or pixels) for each
-$u$-value. Combine that with $n=66$ unique $u$-values used in runs available to
+$u$-value. Combine that with $n_M=66$ unique $u$-values used in runs available to
 us and our response vector will have greater than one million elements. Even if
-we used a smaller LHS space-filling design of size $n=15$ over the model
+we used a smaller LHS space-filling design of size $n_M=15$ over the model
 parameters, the response vector would still consist of over 200,000 points. In
 either case, an ordinary GP could not be fit and provide predictions in a
 reasonable amount of time, prompting the next topic.
