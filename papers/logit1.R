@@ -361,7 +361,6 @@ par(mfrow=c(1,1), mar=c(5.1, 4.1, 0.05, 0.05))
 pdf("logit1_pois_est.pdf", width=5, height=5)
 matplot(x=xm, y=mod_lhats_accept[,seq(5001, 10000, by=10)], type="l", lty=1,
   col="lightgrey", xlab="X", yaxt="n", ylim=ylims, mgp=c(2,0.75,0))
-points(x=xf, y=yf, col=2, pch=8)
 points(x=seq(0, 1, length=nf), y=est_means, col=1, bg=2, pch=21)
 u_postmean <- apply(u[seq(5001, 10000, by=10),], 2, mean)
 lines(x=xm, y=f(xm, u_postmean[1]*uranges[1]+umins[1],
