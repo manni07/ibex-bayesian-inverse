@@ -49,7 +49,7 @@ if (real) {
   cpars <- read.csv(file=infile, head=TRUE)
 }
 
-ncores <- 4#detectCores()-1
+ncores <- max(1, detectCores()/2-1)
 cl <- parallel::makeCluster(ifelse(nrow(cpars) < ncores, nrow(cpars), ncores),
   outfile="log.txt")
 doParallel::registerDoParallel(cl)

@@ -35,6 +35,12 @@ below.
 - `check.R`: input validation functions
 - `vecchia_scaled.R`: original implementation of the Scaled Vecchia GP approximation for use as a surrogate model of the IBEX simulator. Original code found here: https://github.com/katzfuss-group/scaledVecchia
 
+## Dependencies
+
+- Code relies on the following R packages: `R.utils`, `Tmvtnorm`, `GPvecchia`, `GpGp`, `laGP`, `deepgp`, `ggplot2`, `lhs`, `plgp`, `MASS`, `coda`, `ks`, `mvtnorm`, `gridExtra`, `dplyr`, `doParallel`, `parallel`, `scoringRules`
+- All packages are available to install via CRAN
+- To install all packages in one shot, run `Rscript dependencies.R`
+
 ---
 
 Copyright 2023 for **O4646**

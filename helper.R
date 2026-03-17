@@ -1,5 +1,3 @@
-library(tidyverse)
-library(tmvtnorm)
 
 ###############################################################################
 # Preprocesses the data in preparation for calibration. Converts latitude and
