@@ -512,11 +512,12 @@ access to computing resources leads to problems with larger and larger training
 datasets. These methods include, but are not limited to, fixed-rank kriging
 \citep{cressie2008fixed}, inducing points \citep{banerjee2008gaussian},
 compactly supported kernels \citep{kaufman2011efficient}, divide-and-conquer
-\citep{gramacy2015local}, and nearest neighbors \citep{datta2016hierarchical,
-wu2022variational}. Most of these are general enough to be used in a variety of
-different fields and applications. However, there is a method tailor-made for
-our Bayesian inverse problem setting when the likelihood (for $Y^F$) is
-Gaussian.
+\citep{gramacy2015local}, and nearest neighbors
+\citep{datta2016hierarchical, wu2022variational}. Most of these are general
+enough to be used in a variety of different fields and applications.
+{\color{red}However, there is a method tailor-made for our Bayesian inverse problem
+setting when the likelihood for $Y^F$ is Gaussian (although it is still
+insufficient for IBEX, where the likelihood for $Y^F$ is Poisson).}
 
 Specifically in the context of (Gaussian) inverse problems,
 \citet{higdoncalib2008} faced computational bottlenecks much like the IBEX
@@ -785,7 +786,13 @@ performing methods, we push the campaign size up further ($n=2500$).
 \includegraphics[scale=0.53, trim=0 0 0 0, clip=TRUE]{ibex_surr_fit_times_ns.pdf}
 \includegraphics[scale=0.53, trim=0 0 0 0, clip=TRUE]{ibex_surr_pred_times_ns.pdf}
 \includegraphics[scale=0.53, trim=0 0 0 0, clip=TRUE]{ibex_surr_total_times_ns.pdf}
-\caption{Timing metrics on the IBEX simulator experiment.
+\caption{\color{red}{Timing metrics on the IBEX simulator experiment. Left and middle
+panels show fitting and prediction time, respectively. The right panel
+displays combined fitting and prediction time for larger training datasets
+(excluding {\sf deepgp}'s long execution times for readability). Different
+green and black line types are used in the right panel to indicate unique
+settings of $m$ (neighborhood size) for SVEC and $n_k$ (number of principal
+components) for SEPIA. Settings for {\sf laGP} are identical in all panels.}
 \label{f:ibex_surr_timing_size}}
 \end{figure}
 
