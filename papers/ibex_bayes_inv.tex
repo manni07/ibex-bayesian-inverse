@@ -473,7 +473,7 @@ optimization \citep{jones1998efficient}.
 
 GP surrogates are extremely effective. To illustrate, recall Figures
 \ref{f:toy_calib} and \ref{f:toy_calib_pois} in Section \ref{sec:gen_bayes_inv},
-where limited samples of computer model evaluations ($n_M < 50$) are shown. For
+where limited samples of computer model evaluations {\color{red}($n_M < 50$)} are shown. For
 these toy examples, we ``assumed'' we had unlimited access to the simulator. In
 reality, we fit a GP surrogate to the model runs in the left panels. Therefore,
 ``model runs'' at posterior draws of $u$ in the center panels are not in fact
@@ -492,9 +492,9 @@ $n_M=20 \times 30$, combining $X$ and $U$, which is manageable. But for IBEX,
 the simulated sky maps like those in the middle and right panels of Figure
 \ref{f:fig1} are in 2d (under the hood the output is in spherical coordinates
 $x$, $y$, and $z$) and results in ${>}16{,}000$ locations (or pixels) for each
-$u$-value. Combine that with $n_M=66$ unique $u$-values used in runs available to
+$u$-value. Combine that with {\color{red}$n_M=66$} unique $u$-values used in runs available to
 us and our response vector will have greater than one million elements. Even if
-we used a smaller LHS space-filling design of size $n_M=15$ over the model
+we used a smaller LHS space-filling design of size {\color{red}$n_M=15$} over the model
 parameters, the response vector would still consist of over 200,000 points. In
 either case, an ordinary GP could not be fit and provide predictions in a
 reasonable amount of time, prompting the next topic.
@@ -608,7 +608,7 @@ we find a value of $m=25$ to be more than sufficient.
 Several implementations of the Vecchia approximation exist, but we employ one
 that has risen to the top in terms of predictive performance and
 computational thriftiness in the context of computer experiments, that is,
-the Scaled Vecchia (SVEC) approximation introduced by \citet
+the Scaled Vecchia {\color{red}(SVEC)} approximation introduced by \citet
 {scaledvecchiakatzfuss2022}. We refer you to their manuscript for a more
 in-depth explanation of their work, but the primary draw for using it as a
 surrogate for the IBEX simulator is the open source implementation and
@@ -623,7 +623,7 @@ processing. Code that we directly rely on is readily accessible at
 %------------------------------------------------------------------------------
 
 Figure \ref{f:ibex_vecchia} illustrates examples of conditioning sets created
-by SVEC in the context of IBEX and its associated simulator. (We will circle
+by {\color{red}SVEC} in the context of IBEX and its associated simulator. (We will circle
 back to the inverse problem and the data collected by the satellite in
 Section \ref{sec:ibex_data}). Neighborhoods of size $m \in
 \{25,50,75,100\}$ are generated for a particular simulator observation $Y_i^M$
@@ -649,7 +649,7 @@ $u$-space.
 \includegraphics[scale=0.44, trim=5 0 30 0,clip=TRUE]{ibex_nbr_latlon.pdf}
 \includegraphics[scale=0.44, trim=5 0 30 0,clip=TRUE]{ibex_nbr_params.pdf}
 \caption{Conditioning sets $h(i)$ in a multivariate normal likelihood(Eq.~\ref
- {eq:vecchia}) for a single observation $Y_i^M$ using SVEC. The left panel
+ {eq:vecchia}) for a single observation $Y_i^M$ using {\color{red}SVEC}. The left panel
  visualizes neighborhoods in grid space (i.e.,\!~$X$ or $X^F$). Model
  parameter ($u$) space is displayed in the right panel with jitter added.
  Intersections of black, dashed lines indicate unique $u$ combinations run on
@@ -657,11 +657,11 @@ $u$-space.
 \label{f:ibex_vecchia}}
 \end{figure}
 
-We begin evaluation of SVEC's performance on the IBEX simulator with
+We begin evaluation of {\color{red}SVEC's} performance on the IBEX simulator with
 a visual assessment. Scientists at LANL have provided us with 66 unique model
 runs, each producing an image of 16,200 points, or pixels. Figure
 \ref{f:ibex_sim_surr} shows four of the actual simulation outputs (corner
-panels displayed with thin, solid borders). An SVEC GP surrogate is fit
+panels displayed with thin, solid borders). {\color{red}An SVEC} GP surrogate is fit
 to all 66 simulated runs. Then, we predict the output for five unobserved
 combinations of the model parameters that fall in between the actual runs
 shown. These are depicted in the cross of Figure \ref{f:ibex_sim_surr}, those
@@ -700,15 +700,15 @@ TRUE}, and the current ``status-quo'' SEPIA \citep{gattiker2020lanl} with $n_k
 
 Figure \ref{f:ibex_surr_metrics} displays the accuracy results of a simple
 hold-one-out bake-off, with time coming next. For each iteration of the
-experiment, we fit an SVEC GP surrogate on 65 of the $n=66$ model runs
+experiment, we fit {\color{red}an SVEC} GP surrogate on 65 of the $n=66$ model runs
 available. Then, we predict at the held out model parameter. For now, just
 pay attention to the boxplots on the left-hand side of each panel. We'll come
-back to the others in a moment. It is obvious that SVEC outperforms{\sf laGP}
+back to the others in a moment. It is obvious that {\color{red}SVEC} outperforms{\sf laGP}
 and {\sf deepgp} in both RMSE and CRPS. The local focus of {\sf laGP} limits
 its ability to capture global trends, potentially hurting its performance.
 Large data and corresponding expensive matrix operations restrict the number
 of iterations {\sf deepgp} can run and thus prevents the MCMC from converging
-to the target posterior. SEPIA performed similarly to SVEC, illustrating why
+to the target posterior. SEPIA performed similarly to {\color{red}SVEC}, illustrating why
 it has had such staying power over the past two decades. As a practitioner,
 it appears to be a toss-up between these two methods for which to use. But
 that's not the entire story.
@@ -728,7 +728,7 @@ that contribute to a computational bottleneck: the dimension of the simulator
 response (the main focus of our work), and the number of runs of the computer
 model available for training. To test the former, we vary the dimensionality of
 the response from 200 to 20,000, while keeping the number of runs constant. For
-the two methods that are best equipped for large dimensions (SVEC and
+the two methods that are best equipped for large dimensions ({\color{red}SVEC} and
 SEPIA), we attempt to stretch their capacity by cranking up the length of the
 response vector from 20-75K by steps of 5K. At each dimension size, we run five
 Monte Carlo iterations for each method and record the average elapsed time.
@@ -741,7 +741,7 @@ Monte Carlo iterations for each method and record the average elapsed time.
 \caption{Timing metrics on the IBEX simulator experiment. A comparison of the
 fastest methods is shown in the right panel, with different line types
 indicating neighborhood size ($m$) and number of principal components ($n_k$)
-used for SVEC and SEPIA, respectively.
+used for {\color{red}SVEC} and SEPIA, respectively.
 \label{f:ibex_surr_timing_dim}}
 \end{figure}
 
@@ -754,7 +754,7 @@ laGP} does better, it is unable to keep pace at a certain point, likely due to
 the need to fit a mounting number of local GPs separately for each testing
 location. Reducing the neighborhood size for {\sf laGP} could help reduce
 computation, but would further degrade it's accuracy. The comparison between
-SVEC and SEPIA is more nuanced. In the right panel of Figure
+{\color{red}SVEC} and SEPIA is more nuanced. In the right panel of Figure
 \ref{f:ibex_surr_timing_dim}, we see that for a fixed value of $m$, Scaled
 Vecchia's runtime increases linearly with expanded dimensionality,
 consistent with claims made by \citet{katzfuss2021general}. For a fixed number
@@ -773,7 +773,7 @@ Figure \ref{f:ibex_surr_timing_size} displays timing results from changing the
 size of the training dataset (i.e., the number of simulator runs $n$). SEPIA was
 specifically built for computer experiments with high-dimensional output. While
 it clearly performs well in these situations, it's also fairly inflexible to
-other contexts, such as a large number of simulation runs. SVEC does
+other contexts, such as a large number of simulation runs. {\color{red}SVEC} does
 not face this hurdle, as it treats both high-dimensional output and large-scale
 univariate datasets similarly, as a scalar response. Our experiment is set up
 similar to the previous one, but we keep the dimensionality of the response at
@@ -801,7 +801,7 @@ sized set of runs takes well over an hour to fit and needs almost 10 minutes to
 make a single prediction. Most interesting is the behavior of SEPIA in the
 right panel of Figure \ref{f:ibex_surr_timing_size}. For $n > 500$, SEPIA
 takes hours to fit and make predictions. In this context, even {\sf laGP}
-performs better. Our preferred method, SVEC, shows consistency in
+performs better. Our preferred method, {\color{red}SVEC}, shows consistency in
 scaling linearly with an increased campaign size and executes faster than each
 competitor when $m<50$, and for all values of $m$ when $n>1500$.
 
@@ -907,7 +907,7 @@ which correspond to certain orbits.
 (counts/seconds) based on synthetic Poisson draws from a ``true'' computer
 model setting and varying exposure times (top left). IBEX simulator output of
 ENA rate at \textit{parallel mean free path} $= 1750$ and \textit{ratio} $=
-0.02$ (top right). Predicted output via a fitted SVEC surrogate at
+0.02$ (top right). Predicted output via a fitted {\color{red}SVEC} surrogate at
 estimated calibration parameters (bottom left). Posterior samples of model
 parameter $u$ as a kernel density (bottom right).
 \label{f:ibex_synth_ex}}
@@ -925,7 +925,7 @@ the remaining posterior samples of $u$ (bottom right) as a kernel density along
 with a 95\% highest posterior density (HPD) interval. The posterior mean of $u
 \mid Y^F$ lies near $u^\star$, demonstrating that our framework is able to
 concentrate mass around the ``true'' model parameter. As a sanity check, we
-take the estimated posterior mean and plug it in to our fitted SVEC
+take the estimated posterior mean and plug it in to our fitted {\color{red}SVEC}
 GP surrogate of the IBEX simulator. The predicted output is shown in the bottom
 left panel of Figure \ref{f:ibex_synth_ex}. There are some nearly imperceptible
 differences between the estimated sky map and the true $\lambda^\star$ (i.e.,
@@ -955,7 +955,7 @@ which at least one parameter is on its edge (i.e., when parallel mean free path
 $\in \{500, 3000\}$ and/or ratio $\in \{0.001, 0.1\}$). Removing these edge
 cases results in 36 remaining test runs. For each combination, we follow the
 same procedure as above: select one model parameter and set as $u^\star$, create
-simulated observed satellite data, fit an SVEC surrogate on training
+simulated observed satellite data, fit {\color{red}an SVEC} surrogate on training
 data excluding $u^\star$, and run Algorithm \ref{alg:gibbs} to sample from the
 posterior $u \mid Y^F$. Results are shown in Figure \ref{f:synth_estimates_all}.
 
@@ -981,7 +981,7 @@ provided us with satellite data from IBEX for the years 2009-2011, aligning with
 the implementation of the computer model. The number of records in each sky map
 varies across the three years from $\sim$7-9K observations, giving us over 23K
 rows of field data ($X^F, Y^F$) for use in our analysis. We execute Algorithm
-\ref{alg:gibbs} by fitting an SVEC GP surrogate to \textit{all} 66
+\ref{alg:gibbs} by fitting {\color{red}an SVEC} GP surrogate to \textit{all} 66
 computer model runs and sample from the posterior $u \mid Y^F$ via MCMC. One
 difference from Section \ref{sec:synth_data} is that field data ($X^F, Y^F$) are
 not exclusively from one map (Figure \ref{f:ibex_real_ex}). Instead, ($X^F,
@@ -996,9 +996,11 @@ Cartesian coordinates $x$, $y$, $z$ from years 2009-2011.
 \includegraphics[scale=0.39,trim=10 15 100 45,clip=TRUE]{ibex_field_11.pdf}
 \includegraphics[scale=0.39,trim=55 15 10 45,clip=TRUE]{ibex_surr_pred_real.pdf}
 \includegraphics[scale=0.39,trim=0 15 15 45,clip=TRUE]{ibex_real_post_est_zoom.pdf}
-\caption{Observed IBEX satellite data for years 2009-2011 (top left, top middle, bottom left). Predicted output via a fitted SVEC surrogate at
-estimated model parameters (bottom middle). Two views for the posterior
-distribution of sampled model parameters $u$ (top right, bottom right).
+\caption{Observed IBEX satellite data for years 2009-2011 (top left, top
+middle, bottom left). Predicted output via a fitted {\color{red}SVEC}
+surrogate at estimated model parameters (bottom middle). Two views for the
+posterior distribution of sampled model parameters $u$ (top right, bottom
+right).
 \label{f:ibex_real_ex}}
 \end{figure}
 
