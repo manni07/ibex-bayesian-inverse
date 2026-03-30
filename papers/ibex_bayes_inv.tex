@@ -150,15 +150,16 @@ necessitating surrogate modeling; 2) high-dimensional model output (simulated
 sky maps, each containing tens of thousands of pixels), thwarting conventional
 surrogate modeling techniques; and 3) a non-Gaussian field response (Poisson
 counts). It is worth noting that Bayesian posterior sampling, say via Markov
-chain Monte Carlo (MCMC), compounds computational bottlenecks (2). We propose a
-framework for Bayesian inverse problems that utilizes the Vecchia approximation
-\citep{katzfuss2021general,scaledvecchiakatzfuss2022} with a Gaussian process
-(GP) surrogate or emulator for high-dimensional computer simulations, and couple
-that with a Poisson observational model to furnish posterior samples of unknown
-parameters to these models given observed data.
+chain Monte Carlo (MCMC), compounds {\color{red}the computational challenge}
+(2). We propose a framework for Bayesian inverse problems that utilizes the
+Vecchia approximation \citep{katzfuss2021general,scaledvecchiakatzfuss2022}
+with a Gaussian process (GP) surrogate or emulator for high-dimensional
+computer simulations, and couple that with a Poisson observational model to
+furnish posterior samples of unknown parameters to these models given observed
+data.
 
 Methods exist separately, in the literature, to address needs in each of the
-aforementioned situations 1)--3), but we are not aware of any approaches in the
+aforementioned {\color{red}challenges} 1)--3), but we are not aware of any approaches in the
 intersection. Table \ref{tab:prev_work} summarizes the features of the IBEX inverse
 problem and reviews the necessary capabilities, alongside recent papers offering
 partial solutions.  References provided are representative.  We acknowledge that
@@ -316,11 +317,11 @@ draws of $u$ obtained under Metropolis sampling using a multivariate
 normal likelihood whose mean $\mu(X^F)=m(u^{(t)}, X^F)$ and whose covariance $\Sigma(X^F) \sim \sigma^2
 \mathbb{I}$, where $\sigma^2$ is marginalized out under a reference prior
 $\pi(\sigma^2) \propto 1/\sigma^2$. Although we display these runs on a
-high-resolution grid $X$, the sampler only uses evaluations of $m(u^{(t)}, X^F)$ in
-likelihood evaluations. The posterior samples of $u$ thus obtained are shown
-in the right panel of the figure.  In this toy example, it is evident that the
-Metropolis sampler successfully concentrates posterior mass around the true
-value of $u$.
+high-resolution grid $X$, the sampler only uses evaluations of $m(u^{(t)},
+X^F)$ in likelihood evaluations{\color{red}, where $t$ indexes draws from the Metropolis
+sampler}. The posterior samples of $u$ thus obtained are shown in the right
+panel of the figure.  In this toy example, it is evident that the Metropolis
+sampler successfully concentrates posterior mass around the true value of $u$.
 
 The literature on Bayesian inverse problems involves methods that work
 predominantly in this way, particularly regarding a Gaussian likelihood. We
@@ -398,10 +399,13 @@ lies.
 \includegraphics[scale=0.51,trim=20 0 30 0,clip=TRUE]{logit1_pois_obs.pdf}
 \includegraphics[scale=0.51,trim=59 0 30 0,clip=TRUE]{logit1_pois_est.pdf}
 \includegraphics[scale=0.51,trim=16 0 30 0,clip=TRUE]{logit1_pois_post_draws.pdf}
-\caption{An inverse problem for a Poisson process. Counts observed in the field
-and a sample of computer model runs (left), model evaluations at posterior
-draws and mean (middle), and posterior distribution of model parameters
-(right).
+\caption{An inverse problem for a Poisson process. {\color{red}Observed counts from the
+field and a sample of computer model runs are displayed in the left panel. Red
+stars are draws from a Poisson that, when summed together, represent $Y^F$ in
+Alg.~\ref{alg:gibbs}, while red circles correspond to the quantity
+$\frac{Y^F}{e(X^F)}$. The middle panel shows computer model evaluations at
+posterior draws and mean, while the posterior distribution of model parameter
+$u$ is presented on the right.}
 \label{f:toy_calib_pois}}
 \end{figure}
 
