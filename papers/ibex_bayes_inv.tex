@@ -34,23 +34,24 @@ and Applications Group, Los Alamos National Laboratory}}
 
 \begin{abstract}
 Data collected by the Interstellar Boundary Explorer (IBEX) satellite,
-recording heliospheric energetic neutral atoms (ENAs), exhibit a phenomenon that
-has caused space scientists to revise hypotheses about the physical processes,
-and computer simulations under those models, in play at the boundary of our
-solar system.  Evaluating the fit of these computer models involves tuning
-their parameters to observational data from IBEX. This would be a classic
-(Bayesian) inverse problem if not for three challenges: (1) the computer
-simulations are slow, limiting the size of campaigns of runs; so (2) surrogate
-modeling is essential, but outputs are high-resolution images, thwarting
-conventional methods; and (3) IBEX observations are counts, whereas most
-inverse problem techniques assume Gaussian field data. To fill that gap we
-propose a novel approach to Bayesian inverse problems coupling a Poisson
+recording heliospheric energetic neutral atoms (ENAs), exhibit a phenomenon
+that has caused space scientists to revise hypotheses about the physical
+processes, and computer simulations under those models, in play at the
+boundary of our solar system.  Evaluating the fit of these computer models
+involves tuning their parameters to observational data from IBEX. This would
+be a classic (Bayesian) inverse problem if not for three challenges: (1) the
+computer simulations are slow, limiting the size of campaigns of runs; so (2)
+surrogate modeling is essential, but outputs are high-resolution images,
+thwarting conventional methods; and (3) IBEX observations are counts, whereas
+most inverse problem techniques assume Gaussian field data. To fill that gap
+we propose a novel approach to Bayesian inverse problems coupling a Poisson
 response with a sparse Gaussian process surrogate using the Vecchia
 approximation.  We demonstrate the capabilities of our proposed framework,
-which compare favorably to alternatives, through multiple simulated examples in
-terms of recovering ``true'' computer model parameters and accurate
-out-of-sample prediction. We then apply this new technology to IBEX satellite
-data and associated computer models developed at Los Alamos National Laboratory.
+which compare favorably to alternatives, through multiple simulated examples
+{\color{red} in terms of accurate out-of-sample prediction and recovering true,
+``unknown'' computer model parameters.} We then apply this new technology to
+IBEX satellite data and associated computer models developed at Los Alamos
+National Laboratory.
 
 \bigskip
 \noindent \textbf{Key words:} Gaussian process, surrogate modeling,
@@ -238,7 +239,7 @@ methods that form the foundation for our work, namely Bayesian inverse problems
 and Gaussian process surrogate models, and introduces our framework for solving
 the inverse problem in the context of non-Gaussian field observations. We also
 give a brief description of the methodology and implementation behind SEPIA,
-the current ``status quo'' in Bayesian inverse problems for high-dimensional
+the current status quo in Bayesian inverse problems for high-dimensional
 computer model output. Section \ref{sec:vecchia} describes our use of the
 Vecchia approximation to stretch the capacity of a GP surrogate beyond small
 simulator training runs. In Section \ref{sec:ibex_data} we return to our
@@ -293,7 +294,7 @@ collect ENAs.
 To help fix ideas, consider the simpler example introduced in the left panel
 of Figure \ref{f:toy_calib}. Red stars indicate noisy field measurements,
 $Y^F$, observed in replicate as $y_i \stackrel{\mathrm{iid}} \sim
-\mathcal{N}(m(u^\star, x_i), \sigma^2)$ for a ``true'' unknown $u^\star =
+\mathcal{N}(m(u^\star, x_i), \sigma^2)$ for an {\color{red}``unknown''} $u^\star =
 (u_1^\star, u_2^\star)^\top$ and uniform $x_i \in X^F$.  In this simple
 example, the computer model $m(\cdot, \cdot)$ was used to generate the data.
 In practice, the model represents a caricature using known or best-guess
@@ -312,16 +313,18 @@ computer model runs (left), model evaluations at posterior draws and mean
 \label{f:toy_calib}}
 \end{figure}
 
-The middle panel of the figure shows runs of our virtual model evaluated at posterior
-draws of $u$ obtained under Metropolis sampling using a multivariate
-normal likelihood whose mean $\mu(X^F)=m(u^{(t)}, X^F)$ and whose covariance $\Sigma(X^F) \sim \sigma^2
-\mathbb{I}$, where $\sigma^2$ is marginalized out under a reference prior
-$\pi(\sigma^2) \propto 1/\sigma^2$. Although we display these runs on a
+The middle panel of the figure shows runs of our virtual model evaluated at
+posterior draws {\color{red}$u^{(t)}$ ($t$ indicating the $t$th step of the
+sampler)} obtained under Metropolis sampling using a multivariate normal
+likelihood whose mean $\mu(X^F)=m(u^{(t)}, X^F)$ and whose covariance
+$\Sigma(X^F) \sim
+\sigma^2\mathbb{I}$, where $\sigma^2$ is marginalized out under a reference
+prior $\pi(\sigma^2) \propto 1/\sigma^2$. Although we display these runs on a
 high-resolution grid $X$, the sampler only uses evaluations of $m(u^{(t)},
-X^F)$ in likelihood evaluations{\color{red}, where $t$ indexes draws from the Metropolis
-sampler}. The posterior samples of $u$ thus obtained are shown in the right
-panel of the figure.  In this toy example, it is evident that the Metropolis
-sampler successfully concentrates posterior mass around the true value of $u$.
+X^F)$ in likelihood evaluations. The posterior samples of $u$ thus obtained
+are shown in the right panel of the figure.  In this toy example, it is
+evident that the Metropolis sampler successfully concentrates posterior mass
+around the true value of $u$.
 
 The literature on Bayesian inverse problems involves methods that work
 predominantly in this way, particularly regarding a Gaussian likelihood. We
@@ -693,14 +696,14 @@ the four actual simulator runs shown.
 \label{sec:emp_comp}
 %------------------------------------------------------------------------------
 
-To benchmark our surrogate, we conduct experiments to gauge predictive accuracy
-via root mean squared error (RMSE), uncertainty quantification via continuous
-ranked probability score \citep[CRPS;][]{gneiting2007strictly}, and
+To benchmark our surrogate, we conduct experiments to gauge predictive
+accuracy via root mean squared error (RMSE), uncertainty quantification via
+continuous ranked probability score \citep[CRPS;][]{gneiting2007strictly}, and
 computational efficiency via time. We carry out the same experiment for three
 competitors: {\sf R} packages {\sf laGP} \citep{gramacy2014lagp} with defaults
 and {\sf deepgp} \citep{deepGP} with 1000 MCMC iterations and {\sf vecchia =
-TRUE}, and the current ``status-quo'' SEPIA \citep{gattiker2020lanl} with $n_k
-= 3$, implemented in {\sf Python}.
+TRUE}, and SEPIA \citep{gattiker2020lanl} with $n_k = 3$, implemented in {\sf
+Python}.
 
 Figure \ref{f:ibex_surr_metrics} displays the accuracy results of a simple
 hold-one-out bake-off, with time coming next. For each iteration of the
@@ -886,7 +889,7 @@ the years 2009-2011 to simulator runs.
 Using the corpus of $n=66$ computer model runs, varying a design of
 \textit{parallel mean free path} and \textit{ratio} $u$-values, described in
 Section \ref{sec:vecchia}, we select a value $u^\star$ and set the corresponding
-output ($\lambda^\star = m(u^\star, X^M)$) as the ``true'' underlying mean ENA
+output ($\lambda^\star = m(u^\star, X^M)$) as the {\color{red}``unknown''} underlying mean ENA
 rate (upper right panel of Figure \ref{f:ibex_synth_ex}). Next, we gather
 measurement locations $X^F$, exposure times $e$, and background rates
 $\lambda_b$ from a single year that the IBEX satellite has been in operation,
@@ -908,7 +911,7 @@ which correspond to certain orbits.
 \includegraphics[scale=0.48,trim=5 15 95 45,clip=TRUE]{ibex_sim_est.pdf}
 \includegraphics[scale=0.48,trim=5 15 15 45,clip=TRUE]{ibex_post_est.pdf}
 \caption{Estimate of ENA rate
-(counts/seconds) based on synthetic Poisson draws from a ``true'' computer
+(counts/seconds) based on synthetic Poisson draws from {\color{red} an ``unknown''} computer
 model setting and varying exposure times (top left). IBEX simulator output of
 ENA rate at \textit{parallel mean free path} $= 1750$ and \textit{ratio} $=
 0.02$ (top right). Predicted output via a fitted {\color{red}SVEC} surrogate at
@@ -928,7 +931,7 @@ away 1,000 as burn-in and thinning by 10. Figure \ref{f:ibex_synth_ex} displays
 the remaining posterior samples of $u$ (bottom right) as a kernel density along
 with a 95\% highest posterior density (HPD) interval. The posterior mean of $u
 \mid Y^F$ lies near $u^\star$, demonstrating that our framework is able to
-concentrate mass around the ``true'' model parameter. As a sanity check, we
+concentrate mass around the true, {\color{red}``unknown''} model parameter. As a sanity check, we
 take the estimated posterior mean and plug it in to our fitted {\color{red}SVEC}
 GP surrogate of the IBEX simulator. The predicted output is shown in the bottom
 left panel of Figure \ref{f:ibex_synth_ex}. There are some nearly imperceptible
@@ -967,7 +970,7 @@ Each panel shows posterior samples of $u \mid Y^F$ for a unique $u^\star$ as a
 kernel density. We have indicated each $u^\star$ that generated synthetic $Y^F$
 as a blue star. Our 95\% HPD intervals encompass the truth in 34 of the 36 of
 the iterations, near the nominal coverage rate we'd expect. Therefore, we can
-confidently assert that our proposed framework is able to recover the ``true''
+confidently assert that our proposed framework is able to recover the true
 parameter values from \textit{synthetic} satellite data. Next, we apply this to
 real data, with the goal of helping scientists better understand the behavior of
 the heliosphere by estimating these parameters for actual ENA counts collected
@@ -1107,7 +1110,7 @@ problem literature that focuses on normally distributed field observations. Our
 proposed Poisson Bayesian inverse problem framework fills this gap by
 introducing a modular approach that satisfies all three requirements. We have
 shown that our framework is able to recover the model parameter $u^\star$ at the
-nominal 95\% rate when provided with synthetic data where the ``truth'' is known
+nominal 95\% rate when provided with synthetic data where the truth is known
 and all modeling assumptions have been satisfied. We applied this methodology to
 a subset of data collected by the IBEX satellite from 2009-2011 and
 corresponding simulated heliospheric sky maps from a sophisticated computer
@@ -1223,7 +1226,7 @@ for future research endeavors.
 \label{app:pits}
 
 Section \ref{sec:synth_data} showcased the ability of our Poisson Bayesian
-inverse problem framework to recover the ``true'' model parameters $u$ from
+inverse problem framework to recover the {\color{red}true, ``unknown''} model parameters $u$ from
 synthetic satellite data. In particular, we made the claim that both sky maps
 in Figure \ref{f:ibex_synth_ex} (bottom left, top right) could have reasonably
 generated the ENA counts ``observed'' in the top left plot of that figure. This
