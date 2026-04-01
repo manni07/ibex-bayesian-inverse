@@ -212,27 +212,29 @@ higher dimensional responses. In contrast, our approach checks all the boxes
 to achieve the goal of IBEX space scientists and therefore applies to a
 wider class of problems than previous work.
 
-Our integrated framework for Bayesian inverse problems overcomes these obstacles
-together in an all-in-one solution, as illustrated in the top row of Table
-\ref{tab:prev_work}. We adopt the approach of generalized computer model
+Our integrated framework for Bayesian inverse problems overcomes these
+obstacles together in an all-in-one solution, as illustrated in the top row of
+Table \ref{tab:prev_work}. We adopt the approach of generalized computer model
 calibration, adapting to IBEX's count data with a Poisson likelihood and
-employing MCMC to garner posterior samples of model parameters, which determine
-the underlying mean of our Poisson model, given observed data. These samples
-allow us to estimate the full joint posterior distribution of the unknown
-parameters. We access predicted ENA rates through a GP surrogate or emulator fit
-to a limited set of expensive, high-dimensional IBEX computer simulations to
-more thoroughly explore the domain of possible sky maps that serves as the basis
-for the observed ENA counts. As previously stated, MCMC exacerbates the
-computational burden of making surrogate predictions, necessitating not only a
-sparse GP surrogate, but one that can swiftly generate repeated sky map
-proposals at each MCMC iteration. We find the Vecchia approximation to be
-extremely effective in this regard. Lastly, we propose a more intuitive
-technique to modeling high-dimensional vectors, treating each pixel representing
-an ENA rate as a scalar response of interest. This differs from previous
-approaches to functional computer model output, but enables us to leverage
-recent advances in sparse GP surrogate modeling. Additionally, using this
-strategy efficiently scales both to increased dimensionality of the response and
-to larger sizes of training sets.
+employing MCMC to garner posterior samples of model parameters, which
+determine the underlying mean of our Poisson model, given observed data. These
+samples allow us to estimate the full joint posterior distribution of the
+unknown parameters. We access predicted ENA rates through a GP surrogate or
+emulator fit to a limited set of expensive, high-dimensional IBEX computer
+simulations to more thoroughly explore the domain of possible sky maps that
+serves as the basis for the observed ENA counts. As previously stated, MCMC
+exacerbates the computational burden of making surrogate predictions,
+necessitating not only a sparse GP surrogate, but one that can swiftly
+generate repeated sky map proposals at each MCMC iteration. We find the
+Vecchia approximation to be extremely effective in this regard {\color{red}
+providing predictions at thousands of unobserved locations in under a
+second)}. Lastly, we propose a more intuitive technique to modeling
+high-dimensional vectors, treating each pixel representing an ENA rate as a
+scalar response of interest. This differs from previous approaches to
+functional computer model output, but enables us to leverage recent advances
+in sparse GP surrogate modeling. Additionally, using this strategy efficiently
+scales both to increased dimensionality of the response and to larger sizes of
+training sets.
 
 Our paper is laid out as follows. First, Section \ref{sec:review} reviews
 methods that form the foundation for our work, namely Bayesian inverse problems
@@ -478,15 +480,16 @@ simulation experiments, they are utilized in geospatial statistics
 \citep{cressie2011statistics}, time series \citep{roberts2013gaussian}, and
 optimization \citep{jones1998efficient}.
 
-GP surrogates are extremely effective. To illustrate, recall Figures
-\ref{f:toy_calib} and \ref{f:toy_calib_pois} in Section \ref{sec:gen_bayes_inv},
-where limited samples of computer model evaluations {\color{red}($n_M < 50$)} are shown. For
-these toy examples, we ``assumed'' we had unlimited access to the simulator. In
-reality, we fit a GP surrogate to the model runs in the left panels. Therefore,
-``model runs'' at posterior draws of $u$ in the center panels are not in fact
-evaluations of the model, but predictions from a fitted GP surrogate. Even so,
-the Metropolis sampler used those accurate (and fast) predictions to
-successfully recover the true model parameters $u^\star$.
+GP surrogates {\color{red}can provide extremely accurate predictions}. To
+illustrate, recall Figures \ref{f:toy_calib} and \ref{f:toy_calib_pois} in
+Section \ref{sec:gen_bayes_inv}, where limited samples of computer model
+evaluations {\color{red}($n_M < 50$)} are shown. For these toy examples, we
+``assumed'' we had unlimited access to the simulator. In reality, we fit a GP
+surrogate to the model runs in the left panels. Therefore, ``model runs'' at
+posterior draws of $u$ in the center panels are not in fact evaluations of the
+model, but predictions from a fitted GP surrogate. Even so, the Metropolis
+sampler used those accurate (and fast) predictions to successfully recover the
+true model parameters $u^\star$.
 
 One downside to working with MVNs whose dimension grows with the dimension of
 the data they are trained on, $n_M$, is that building $n_M \times n_M$
@@ -1100,21 +1103,22 @@ posterior mass at the best possible value of the model parameter $u$.
 \section{Discussion}
 \label{sec:discuss}
 
-We have introduced an effective tool for solving inverse problems using Bayesian
-methods where 1) the simulator representing the physical model or process is
-expensive, limiting the number of runs available for analysis and demanding a GP
-surrogate, but 2) the computer model output is extremely high-dimensional,
-requiring novel methods to induce sparsity and approximate the GP, and 3) data
-from a field experiment are Poisson counts, bucking the current Bayesian inverse
-problem literature that focuses on normally distributed field observations. Our
-proposed Poisson Bayesian inverse problem framework fills this gap by
-introducing a modular approach that satisfies all three requirements. We have
-shown that our framework is able to recover the model parameter $u^\star$ at the
-nominal 95\% rate when provided with synthetic data where the truth is known
-and all modeling assumptions have been satisfied. We applied this methodology to
-a subset of data collected by the IBEX satellite from 2009-2011 and
-corresponding simulated heliospheric sky maps from a sophisticated computer
-model.
+We have introduced an effective tool for solving inverse problems using
+Bayesian methods where 1) the simulator representing the physical model or
+process is expensive, limiting the number of runs available for analysis and
+demanding a GP surrogate, but 2) the computer model output is extremely
+high-dimensional {\color{red}(e.g.~a functional response with thousands of
+grid points)}, requiring novel methods to induce sparsity and approximate the
+GP, and 3) data from a field experiment are Poisson counts, bucking the
+current Bayesian inverse problem literature that focuses on normally
+distributed field observations. Our proposed Poisson Bayesian inverse problem
+framework fills this gap by introducing a modular approach that satisfies all
+three requirements. We have shown that our framework is able to recover the
+model parameter $u^\star$ at the nominal 95\% rate when provided with
+synthetic data where the truth is known and all modeling assumptions have been
+satisfied. We applied this methodology to a subset of data collected by the
+IBEX satellite from 2009-2011 and corresponding simulated heliospheric sky
+maps from a sophisticated computer model.
 
 The IBEX satellite has collected counts of ENAs for over 15 years. Our work
 focused on data collected in a three-year period for which the computer model we
