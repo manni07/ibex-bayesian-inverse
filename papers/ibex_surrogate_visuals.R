@@ -164,7 +164,7 @@ ylims <- range(model_data$lat)
 xlims <- rev(range(model_data$nlon))
 pdf("ibex_surr_vis_check.pdf", width=14, height=11)
 par(mfrow=c(length(ratios), length(pmfps)),
-  mar=c(0, 0, 1.25, 1.25), oma=c(5, 5, 1, 1))
+  mar=c(0, 0, 1.25, 1.25), oma=c(5, 5, 5, 5))
 for (i in 1:nrow(grid)) {
   if (grid[i,1] %in% model_pmfps && grid[i,2] %in% model_ratios) {
 
@@ -206,6 +206,12 @@ for (i in 1:nrow(grid)) {
   if ((i-1) %% length(pmfps)==0) {
     axis(2, at=seq(-50, 50, by=50), cex.axis=1.25)
   }
+  if (i %% length(pmfps)==0) {
+    text(x=-20.0, y=0.5, labels=grid[i,2], srt=270, xpd=NA, cex=1.5)
+    if (i %% (length(pmfps)*2)==0) {
+      text(x=-55.0, y=0.5, labels="Ratio", srt=270, xpd=NA, cex=2.0)
+    }
+  }
   if (i > length(pmfps)*(length(ratios)-1)) {
     axis(1, at=seq(325, 25, by=-60), cex.axis=1.25,
       labels=c(60, 0, 300, 240, 180, 120))
@@ -213,4 +219,10 @@ for (i in 1:nrow(grid)) {
 }
 mtext("Longitude", side=1, line=3.5, outer=TRUE, cex=1.25)
 mtext("Latitude", side=2, line=3.5, outer=TRUE, cex=1.25)
+mtext("Parallel Mean Free Path", side=3, line=3.0, outer=TRUE, cex=1.25)
+
+for (i in 1:length(unique(grid[,1]))) {
+  mtext(unique(grid[,1])[i], side=3, outer=TRUE, at=(i-0.5)/3, line=0)
+}
+
 dev.off()
