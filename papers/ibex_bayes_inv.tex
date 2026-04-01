@@ -749,9 +749,11 @@ Monte Carlo iterations for each method and record the average elapsed time.
 \includegraphics[scale=0.53, trim=0 0 0 0, clip=TRUE]{ibex_surr_pred_times.pdf}
 \includegraphics[scale=0.53, trim=0 0 0 0, clip=TRUE]{ibex_surr_total_times.pdf}
 \caption{Timing metrics on the IBEX simulator experiment. A comparison of the
-fastest methods is shown in the right panel, with different line types
-indicating neighborhood size ($m$) and number of principal components ($n_k$)
-used for {\color{red}SVEC} and SEPIA, respectively.
+fastest methods {\color{red}on larger training/test sets} is shown in the
+right panel, with different line types indicating neighborhood size ($m$) and
+number of principal components ($n_k$) used for {\color{red}SVEC} and SEPIA,
+respectively. {\color{red}Neither {\sf deepgp} or {\sf laGP} are shown for
+visual interpretability.}
 \label{f:ibex_surr_timing_dim}}
 \end{figure}
 
@@ -909,17 +911,19 @@ which correspond to certain orbits.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.48,trim=5 15 95 45,clip=TRUE]{ibex_sim_field.pdf}
-\includegraphics[scale=0.48,trim=5 15 15 45,clip=TRUE]{ibex_sim_mod.pdf}
-\includegraphics[scale=0.48,trim=5 15 95 45,clip=TRUE]{ibex_sim_est.pdf}
-\includegraphics[scale=0.48,trim=5 15 15 45,clip=TRUE]{ibex_post_est.pdf}
+\includegraphics[scale=0.38,trim=5 15 100 45,clip=TRUE]{ibex_sim_field.pdf}
+\includegraphics[scale=0.38,trim=50 15 100 45,clip=TRUE]{ibex_sim_est.pdf}
+\includegraphics[scale=0.38,trim=50 15 15 45,clip=TRUE]{ibex_sim_mod.pdf}
+\includegraphics[scale=0.38,trim=5 15 15 45,clip=TRUE]{ibex_post_est.pdf}
+\includegraphics[scale=0.38,trim=5 15 0 45,clip=TRUE]{ibex_sim_resids.pdf}
 \caption{Estimate of ENA rate
-(counts/seconds) based on synthetic Poisson draws from {\color{red} an ``unknown''} computer
-model setting and varying exposure times (top left). IBEX simulator output of
-ENA rate at \textit{parallel mean free path} $= 1750$ and \textit{ratio} $=
-0.02$ (top right). Predicted output via a fitted {\color{red}SVEC} surrogate at
-estimated calibration parameters (bottom left). Posterior samples of model
-parameter $u$ as a kernel density (bottom right).
+(counts/seconds) based on synthetic Poisson draws from {\color{red} an
+``unknown''} computer model setting and varying exposure times (top left).
+IBEX simulator output of ENA rate at \textit{parallel mean free path} $= 1750$
+and \textit{ratio} $= 0.02$ (top middle). Predicted output via a fitted
+{\color{red}SVEC} surrogate at estimated calibration parameters (top right).
+{\color{red}Residuals between predicted and simulated output (bottom right)}. Posterior
+samples of model parameter $u$ as a kernel density (bottom left).
 \label{f:ibex_synth_ex}}
 \end{figure}
 
@@ -934,14 +938,18 @@ away 1,000 as burn-in and thinning by 10. Figure \ref{f:ibex_synth_ex} displays
 the remaining posterior samples of $u$ (bottom right) as a kernel density along
 with a 95\% highest posterior density (HPD) interval. The posterior mean of $u
 \mid Y^F$ lies near $u^\star$, demonstrating that our framework is able to
-concentrate mass around the true, {\color{red}``unknown''} model parameter. As a sanity check, we
-take the estimated posterior mean and plug it in to our fitted {\color{red}SVEC}
-GP surrogate of the IBEX simulator. The predicted output is shown in the bottom
-left panel of Figure \ref{f:ibex_synth_ex}. There are some nearly imperceptible
-differences between the estimated sky map and the true $\lambda^\star$ (i.e.,
-the shape and intensity of the ribbon vary slightly between the two). However,
-from a purely visual standpoint, it appears that each map could have reasonably
-generated the data we ``observe'' in the top left panel.
+concentrate mass around the true, {\color{red}``unknown''} model parameter. As
+a sanity check, we take the estimated posterior mean and plug it in to our
+fitted {\color{red}SVEC} GP surrogate of the IBEX simulator. The predicted
+output is shown in the {\color{red}top right} panel of Figure
+\ref{f:ibex_synth_ex}. There are some nearly imperceptible differences between
+the estimated sky map and the true $\lambda^\star$ (i.e., the shape and
+intensity of the ribbon vary slightly between the two). {\color{red}These
+residuals between simulated and predicted output (bottom right panel) are
+orders of magnitude smaller than the response, but do exhibit structure, which
+we will address in Section \ref{sec:discuss}}. However, from a purely visual
+standpoint, it appears that each map could have reasonably generated the data
+we ``observe'' in the top left panel.
 
 \begin{figure}[ht!]
 \centering

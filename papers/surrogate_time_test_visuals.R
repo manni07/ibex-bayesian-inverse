@@ -129,6 +129,10 @@ matplot(x=large_ns, y=long_times_ord[(length(ns)+1):nrow(long_times_ord),]/60, t
   lwd=3, col=rep(c(1,3), each=4), lty=rep(1:4, 2), ylim=c(0, 30))
 lines(x=large_ns, y=surr_total_times[(length(ns)+1):nrow(surr_total_times),5]/60,
   lwd=3, col=4, lty=4)
-legend("topright", c("SVEC (m=25,50,75,100)", expression(SEPIA~"("*n[k]*"=3,4,5,6)")), col=c(1,3),
-  lty=1, lwd=2, cex=1.05, bg="white")
+legend("topright", legend=c("SVEC", "", "SEPIA", "", "m=25", "m=75", expression(n[k]*"="*3),
+  expression(n[k]*"="*5), "m=50", "m=100", expression(n[k]*"="*4),
+  expression(n[k]*"="*6)), col=c(NA, NA, NA, NA, rep(c(1,1,3,3), 2)), cex=1.0,
+  lty=c(NA, NA, NA, NA, rep(c(1,3), 2), rep(c(2,4), 2)), x.intersp=0.3, lwd=2,
+  ncol=3, bg="white")
+box()
 dev.off()

@@ -128,6 +128,26 @@ fields::image.plot(zlim=predrange, col=cols, legend.lab="ENAs/sec", legend.line=
   legend.only=TRUE, side=4, line=2, smallplot=c(0.82, 0.86, 0.3, 0.75))
 dev.off()
 
+pred_data$residuals <- pred_data$lhat_curr-model_data$blurred_ena_rate
+residrange <- c(-max(abs(pred_data$residuals)), max(abs(pred_data$residuals)))
+resid_cols <- colorRampPalette(c("red", "white", "blue"))(500)
+resid_bks <- seq(residrange[1], residrange[2], length=length(resid_cols)+1)
+
+resid_zmat <- xtabs(residuals ~ nlon + lat, data=pred_data)
+resid_zmat[resid_zmat > residrange[2]] <- residrange[2]
+resid_zmat[resid_zmat < residrange[1]] <- residrange[1]
+pdf("ibex_sim_resids.pdf", width=7, height=5)
+par(mfrow=c(1,1), mar=c(5.1, 4.1, 4.1, 7.1), mgp=c(2.4, 0.6, 0))
+## If NOT using pdf(), image will be flipped because of useRaster=TRUE
+image(x=pred_lons, y=pred_lats, z=resid_zmat, col=resid_cols, breaks=resid_bks,
+  xlab="Longitude", xaxt="n", ylab="Latitude", xlim=xlims, ylim=ylims,
+  cex.lab=1.1, useRaster=TRUE)
+axis(1, at=seq(325, 25, by=-60),
+  labels=c(60, 0, 300, 240, 180, 120))
+fields::image.plot(zlim=residrange, col=resid_cols, legend.lab="ENAs/sec", legend.line=3.75,
+  legend.only=TRUE, side=4, line=2.5, smallplot=c(0.82, 0.86, 0.3, 0.75))
+dev.off()
+
 iter_pmfp <- res[[single_index]]$u[seq(10001, 20000, by=10),1]
 iter_ratio <- res[[single_index]]$u[seq(10001, 20000, by=10),2]
 
