@@ -293,9 +293,11 @@ which $u$ are likely to have generated the recorded $Y^F$ values in the left
 panel, observed at locations where the IBEX satellite was pointed ($X^F$) to
 collect ENAs.
 
-To help fix ideas, consider the simpler example introduced in the left panel
-of Figure \ref{f:toy_calib}. Red stars indicate noisy field measurements,
-$Y^F$, observed in replicate as $y_i \stackrel{\mathrm{iid}} \sim
+To help fix ideas, consider the simpler example introduced in the
+{\color{red}top row} of Figure \ref{f:toy_calib} {\color{red} (ignore
+the bottom row for now)}. {\color{red}In the top left panel,} red stars indicate noisy
+field measurements, $Y^F$, observed in replicate as $y_i
+\stackrel{\mathrm{iid}} \sim
 \mathcal{N}(m(u^\star, x_i), \sigma^2)$ for an {\color{red}``unknown''} $u^\star =
 (u_1^\star, u_2^\star)^\top$ and uniform $x_i \in X^F$.  In this simple
 example, the computer model $m(\cdot, \cdot)$ was used to generate the data.
@@ -306,12 +308,20 @@ line is $m(u^\star, X)$ provided as a reference.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.51,trim=20 0 30 0,clip=TRUE]{logit1_obs.pdf}
-\includegraphics[scale=0.51,trim=59 0 30 0,clip=TRUE]{logit1_est.pdf}
-\includegraphics[scale=0.51,trim=16 0 30 0,clip=TRUE]{logit1_post_draws.pdf}
-\caption{A simple inverse problem. Field observations and a small sample of
-computer model runs (left), model evaluations at posterior draws and mean
-(middle), and posterior distribution of model parameters (right).
+\includegraphics[scale=0.51,trim=0 60 30 0,clip=TRUE]{logit1_obs.pdf}
+\includegraphics[scale=0.51,trim=71 60 30 0,clip=TRUE]{logit1_est.pdf}
+\includegraphics[scale=0.51,trim=31 60 25 0,clip=TRUE]{logit1_post_draws.pdf}
+\includegraphics[scale=0.51,trim=0 0 30 45,clip=TRUE]{logit1_pois_obs.pdf}
+\includegraphics[scale=0.51,trim=71 0 30 45,clip=TRUE]{logit1_pois_est.pdf}
+\includegraphics[scale=0.51,trim=31 0 25 45,clip=TRUE]{logit1_pois_post_draws.pdf}
+\caption{{\color{red}A simple inverse problem. Observations from the
+field and a sample of computer model runs are displayed in the left column. On
+the top, red stars are measurements with Gaussian noise. On the bottom, red
+stars are draws from a Poisson that, when summed together, represent $Y^F$ in
+Alg.~\ref{alg:gibbs}. Red red circles correspond to the quantity
+$\frac{Y^F}{e(X^F)}$. The middle panels show computer model evaluations at
+posterior draws and means. Right panels show posterior distributions of model
+parameter $u$.}
 \label{f:toy_calib}}
 \end{figure}
 
@@ -355,7 +365,7 @@ Y^F &\sim \mathrm{Pois}(\lambda(X^F), e(X^F)) & \lambda(X) &= m(u, X) \nonumber
 where $e(X^F)$ represents the duration (in seconds) the satellite points at
 specific locations in the sky. $\lambda(X^F)$ denotes the rate at which ENA
 particles are generated for rows (latitude/longitude pairs) in $X^F$. Sampling
-from the posterior could proceed via Metroplois as in Algorithm \ref{alg:gibbs}.
+from the posterior could proceed via Metropolis as in Algorithm \ref{alg:gibbs}.
 For the IBEX field data, we evaluate a Poisson likelihood given an exposure
 time for each observation and a mean surface determined by a simulator
 $m(\cdot,\cdot)$ at proposed values of $u$, although we believe it would be
@@ -385,34 +395,21 @@ Compute and store $\mathcal{L}(Y^F|\lambda(X^F)^{(0)}, e(X^F)) =
 \end{algorithm}
 
 Using Algorithm \ref{alg:gibbs}, we can build on the toy problem we introduced
-in Figure \ref{f:toy_calib} and align it more closely with the IBEX data.
-Instead of observing a mean process $\mu(X^F)$ with random, Gaussian noise,
-suppose we are given counts, drawn from a Poisson process with $\lambda(X^F) =
-m(u^\star, X^F)$, as shown in the left panel of Figure \ref{f:toy_calib_pois}.
-Computer model runs $m(\cdot,\cdot) = \lambda(X)$ produce different mean
-surfaces given unique values of $u = (u_1, u_2)$. Observed counts are shown as
-red stars. Red circles indicate the sum of all counts at one input location
-(i.e. a single row of $X^F$) divided by the sum of their corresponding exposure
-times $e(\cdot)$. These points are the actual data we receive. Results from
-running Algorithm \ref{alg:gibbs} are shown in the middle and right panels of
-Figure \ref{f:toy_calib_pois}. Similar to the results in Figure
-\ref{f:toy_calib}, it is clear that the sampler searches a broad swath of the
-model input space but hones in on the region where the true parameter value
-lies.
-\begin{figure}[ht!]
-\centering
-\includegraphics[scale=0.51,trim=20 0 30 0,clip=TRUE]{logit1_pois_obs.pdf}
-\includegraphics[scale=0.51,trim=59 0 30 0,clip=TRUE]{logit1_pois_est.pdf}
-\includegraphics[scale=0.51,trim=16 0 30 0,clip=TRUE]{logit1_pois_post_draws.pdf}
-\caption{An inverse problem for a Poisson process. {\color{red}Observed counts from the
-field and a sample of computer model runs are displayed in the left panel. Red
-stars are draws from a Poisson that, when summed together, represent $Y^F$ in
-Alg.~\ref{alg:gibbs}, while red circles correspond to the quantity
-$\frac{Y^F}{e(X^F)}$. The middle panel shows computer model evaluations at
-posterior draws and mean, while the posterior distribution of model parameter
-$u$ is presented on the right.}
-\label{f:toy_calib_pois}}
-\end{figure}
+in {\color{red}the top row of} Figure \ref{f:toy_calib} and align it more
+closely with the IBEX data. Instead of observing a mean process $\mu(X^F)$
+with random, Gaussian noise, suppose we are given counts, drawn from a Poisson
+process with $\lambda(X^F) = m(u^\star, X^F)$, as shown in the
+{\color{red}bottom} left panel of Figure \ref{f:toy_calib}. Computer model
+runs $m(\cdot,\cdot) = \lambda(X)$ produce different mean surfaces given
+unique values of $u = (u_1, u_2)$. Observed counts are shown as red stars. Red
+circles indicate the sum of all counts at one input location (i.e. a single
+row of $X^F$) divided by the sum of their corresponding exposure times
+$e(\cdot)$. These points are the actual data we receive. Results from running
+Algorithm \ref{alg:gibbs} are shown in the {\color{red}bottom} middle and
+right panels of Figure \ref{f:toy_calib}. Similar to results in
+{\color{red} the top row}, it is clear that the sampler searches a broad swath
+of the model input space but hones in {\color{red}(perhaps more effectively
+than before)} on the region where the true parameter value lies.
 
 In each of these toy examples we have made the assumption that we have unlimited
 access to simulator runs (i.e., for each proposed combination of model
@@ -481,7 +478,7 @@ simulation experiments, they are utilized in geospatial statistics
 optimization \citep{jones1998efficient}.
 
 GP surrogates {\color{red}can provide extremely accurate predictions}. To
-illustrate, recall Figures \ref{f:toy_calib} and \ref{f:toy_calib_pois} in
+illustrate, recall Figure \ref{f:toy_calib} in
 Section \ref{sec:gen_bayes_inv}, where limited samples of computer model
 evaluations {\color{red}($n_M < 50$)} are shown. For these toy examples, we
 ``assumed'' we had unlimited access to the simulator. In reality, we fit a GP
@@ -497,7 +494,7 @@ matrices, and inverting (or otherwise decomposing) them, e.g., for
 Eq.~(\ref{eq:mvn_eq}) requires storage and computation that is quadratic and
 cubic in $n_M$, respectively.  This limits $n_M$ to a few thousand at most in a
 Bayesian MCMC setting, necessitating approximations for GPs that curb this
-prohibitive cost. With the 1d example in Figure \ref{f:toy_calib_pois}, we have
+prohibitive cost. With the 1d example in Figure \ref{f:toy_calib}, we have
 $n_M=20 \times 30$, combining $X$ and $U$, which is manageable. But for IBEX,
 the simulated sky maps like those in the middle and right panels of Figure
 \ref{f:fig1} are in 2d (under the hood the output is in spherical coordinates
@@ -1133,7 +1130,7 @@ focused on data collected in a three-year period for which the computer model we
 relied on was aligned. Figure \ref{f:real_estimates_all} shows resulting
 estimated posterior distributions for model parameter $u$ when field data is
 split by year (2012-2021). Behavior is similar to what we observed in Figure
-\ref{f:ibex_real_ex}, but even more extreme, as the Metroplois sampler pushes up
+\ref{f:ibex_real_ex}, but even more extreme, as the Metropolis sampler pushes up
 against the boundary of the current range of $u$. We certainly do not claim
 these posteriors to be the true distribution of parallel mean free path and
 ratio. Instead, we suggest our work be extended to account for un-modeled
